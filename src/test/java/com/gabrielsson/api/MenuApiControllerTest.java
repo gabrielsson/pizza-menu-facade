@@ -9,13 +9,15 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MenuApiControllerTest {
 
     @Test
     public void menuPost() {
         MenuApiController api = new MenuApiController(new CityService());
-        List<String> ingredients = Arrays.asList("Skinka",
+        List<String> ingredients = Arrays.asList(
+                "Skinka",
                 "Kebabkött",
                 "Köttfärs",
                 "Salami",
@@ -27,16 +29,28 @@ public class MenuApiControllerTest {
                 "Vitlök",
                 "Basilika",
                 "Kebabsås"
-                );
+        );
         List<Pizza> pizzas = api.menuPost(ingredients
                 .stream()
                 .map(s -> new Ingredient().name(s))
                 .collect(Collectors.toList()))
                 .getBody();
 
-        pizzas.forEach(pizza -> System.out.println(pizza.getName() + "\nTomat, Ost, " + pizza.getIngredients().stream().map(Ingredient::getName).collect(Collectors.joining(", "))));
-                Assertions.assertThat(pizzas)
-                        .hasSize((int) Math.pow(2,
-                                ingredients.size()));
+        IntStream.range(0, pizzas.size())
+                .forEach(i -> {
+                    Pizza pizza = pizzas.get(i);
+                    System.out.println(i + 1 + ". " +
+                            pizza.getName() +
+                            "\nTomat, Ost, " +
+                            pizza.getIngredients()
+                                    .stream()
+                                    .map(Ingredient::getName)
+                                    .collect(Collectors.joining(", ")));
+
+                });
+
+        Assertions.assertThat(pizzas)
+                .hasSize((int) Math.pow(2,
+                        ingredients.size()));
     }
 }
