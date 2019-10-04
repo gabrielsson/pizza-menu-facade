@@ -9,8 +9,6 @@ import org.springframework.validation.annotation.Validated;
  * Ingredient
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-02T13:16:40.716Z")
-
 public class Ingredient   {
   @JsonProperty("name")
   private String name = null;
@@ -20,13 +18,7 @@ public class Ingredient   {
     return this;
   }
 
-  /**
-   * Get name
-   * @return name
-  **/
   @ApiModelProperty(example = "Basil", value = "")
-
-
   public String getName() {
     return name;
   }

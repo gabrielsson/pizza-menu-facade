@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-02T13:16:40.716Z")
-
 @Api(value = "menu", description = "the menu API")
 public interface MenuApi {
 

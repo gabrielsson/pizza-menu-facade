@@ -17,13 +17,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-02T13:16:40.716Z")
-
 @Controller
 public class MenuApiController implements MenuApi {
 
     private static final Logger log = LoggerFactory.getLogger(MenuApiController.class);
     private final CityService cityProvider;
+
     public MenuApiController(CityService cityProvider) {
         this.cityProvider = cityProvider;
     }

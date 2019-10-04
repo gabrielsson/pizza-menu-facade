@@ -13,7 +13,6 @@ import javax.validation.Valid;
  * Pizza
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-02T13:16:40.716Z")
 
 public class Pizza   {
   @JsonProperty("name")
@@ -28,13 +27,7 @@ public class Pizza   {
     return this;
   }
 
-  /**
-   * Get name
-   * @return name
-  **/
   @ApiModelProperty(example = "Roma", value = "")
-
-
   public String getName() {
     return name;
   }

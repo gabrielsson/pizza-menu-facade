@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackages = { "io.swagger", "com.squeed.api" , "com.squeed.configuration", "com.squeed.service"})
+@ComponentScan(basePackages = { "io.swagger", "com.gabrielsson.api" , "com.gabrielsson.configuration", "com.gabrielsson.service"})
 public class Application implements CommandLineRunner {
 
     @Override

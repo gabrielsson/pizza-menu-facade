@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2019-10-02T13:16:40.716Z")
 
-@Api(value = "ingredients", description = "the ingredients API")
+@Api(value = "ingredients")
 public interface IngredientsApi {
 
     @ApiOperation(value = "Retrieve ingredients", nickname = "ingredientsGet", notes = "Retrieve a list of all available ingredients.", response = Ingredient.class, responseContainer = "List", tags={  })
@@ -24,5 +23,4 @@ public interface IngredientsApi {
         produces = { "application/json" }, 
         method = RequestMethod.GET)
     ResponseEntity<List<Ingredient>> ingredientsGet();
-
 }
