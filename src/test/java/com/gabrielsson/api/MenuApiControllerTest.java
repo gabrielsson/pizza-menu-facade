@@ -5,17 +5,25 @@ import com.gabrielsson.model.Pizza;
 import com.gabrielsson.service.CityService;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static org.mockito.ArgumentMatchers.any;
+
 public class MenuApiControllerTest {
+
 
     @Test
     public void menuPost() {
-        MenuApiController api = new MenuApiController(new CityService());
+        CityService cityService = Mockito.mock(CityService.class);
+        Mockito.when(cityService.newPizzaName(any())).thenReturn("Dummy");
+        MenuApiController api = new MenuApiController(cityService);
         List<String> ingredients = Arrays.asList(
                 "Skinka",
                 "Kebabkött",

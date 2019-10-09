@@ -21,10 +21,10 @@ import java.util.stream.Stream;
 public class MenuApiController implements MenuApi {
 
     private static final Logger log = LoggerFactory.getLogger(MenuApiController.class);
-    private final CityService cityProvider;
+    private final CityService cityService;
 
     public MenuApiController(CityService cityProvider) {
-        this.cityProvider = cityProvider;
+        this.cityService = cityProvider;
     }
 
     public ResponseEntity<List<Pizza>> menuPost(@ApiParam(value = "", required = true) @Valid @RequestBody List<Ingredient> body) {
@@ -37,7 +37,7 @@ public class MenuApiController implements MenuApi {
         List<Pizza> collect = stream
                 .map(list -> {
 
-                    return new Pizza().ingredients(list).name(cityProvider.newPizzaName());
+                    return new Pizza().ingredients(list).name(cityService.newPizzaName(list.stream().map(i -> i.getName()).collect(Collectors.toList())));
                 }).collect(Collectors.toList());
 
         return new ResponseEntity<List<Pizza>>(collect, HttpStatus.OK);
