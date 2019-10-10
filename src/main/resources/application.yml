@@ -6,7 +6,7 @@ springfox:
   documentation:
     swagger.v2.path: /api-docs
 server:
-  port: 8080
+  port: 8081
   contextPath: /v1
 spring:
   application:
