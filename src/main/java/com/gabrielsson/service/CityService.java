@@ -19,10 +19,10 @@ public class CityService {
         this.cityEndpoint = cityEndpoint;
     }
 
-    public String newPizzaName(List<String> ingredients) {
+    public String newPizzaName(String ingredients) {
 
         Map<String, String> params = new HashMap<>();
-        params.put("ingredients", ingredients.stream().collect(Collectors.joining(",")));
+        params.put("ingredients", ingredients);
 
         RestTemplate restTemplate = new RestTemplate();
         String name = restTemplate.getForObject(cityEndpoint +"/name?ingredients={ingredients}",

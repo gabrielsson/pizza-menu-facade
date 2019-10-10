@@ -5,9 +5,7 @@ import com.gabrielsson.model.Pizza;
 import com.gabrielsson.service.CityService;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,14 +14,14 @@ import java.util.stream.IntStream;
 
 import static org.mockito.ArgumentMatchers.any;
 
-public class MenuApiControllerTest {
+public class MenuProviderTest {
 
 
     @Test
     public void menuPost() {
         CityService cityService = Mockito.mock(CityService.class);
         Mockito.when(cityService.newPizzaName(any())).thenReturn("Dummy");
-        MenuApiController api = new MenuApiController(cityService);
+        MenuProvider api = new MenuProvider(cityService);
         List<String> ingredients = Arrays.asList(
                 "Skinka",
                 "Kebabkött",
@@ -38,12 +36,14 @@ public class MenuApiControllerTest {
                 "Basilika",
                 "Kebabsås"
         );
-        List<Pizza> pizzas = api.menuPost(ingredients
+        List<Pizza> pizzas = api.provide(ingredients
                 .stream()
-                .map(s -> new Ingredient().name(s))
-                .collect(Collectors.toList()))
-                .getBody();
-
+                .map(s -> {
+                    Ingredient ingredient = new Ingredient();
+                    ingredient.setName(s);
+                    return ingredient;
+                })
+                .collect(Collectors.toList()));
         IntStream.range(0, pizzas.size())
                 .forEach(i -> {
                     Pizza pizza = pizzas.get(i);
