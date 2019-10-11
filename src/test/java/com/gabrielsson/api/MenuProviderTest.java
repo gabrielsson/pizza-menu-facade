@@ -1,7 +1,21 @@
 package com.gabrielsson.api;
 
+import com.gabrielsson.service.CityService;
+import com.google.common.collect.ImmutableMap;
+import org.assertj.core.api.Assertions;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static org.mockito.ArgumentMatchers.any;
+
 public class MenuProviderTest {
-/*
+
 
     @Test
     public void menuPost() {
@@ -22,29 +36,25 @@ public class MenuProviderTest {
                 "Basilika",
                 "Kebabsås"
         );
-        List<Pizza> pizzas = api.provide(ingredients
+        List<Map<String, Object>> name = ingredients
                 .stream()
-                .map(s -> {
-                    Ingredient ingredient = new Ingredient();
-                    ingredient.setName(s);
-                    return ingredient;
-                })
-                .collect(Collectors.toList()));
+                .map(s -> ImmutableMap.of("name", (Object) s))
+                .collect(Collectors.toList());
+        List<Map<String, Object>> pizzas = api.provide(name);
+
         IntStream.range(0, pizzas.size())
                 .forEach(i -> {
-                    Pizza pizza = pizzas.get(i);
+                    Map<String, Object> pizza = pizzas.get(i);
                     System.out.println(i + 1 + ". " +
-                            pizza.getName() +
+                            pizza.get("name") +
                             "\nTomat, Ost, " +
-                            pizza.getIngredients()
-                                    .stream()
-                                    .map(Ingredient::getName)
-                                    .collect(Collectors.joining(", ")));
+                            pizza.get("ingredients")
+                    );
 
                 });
 
         Assertions.assertThat(pizzas)
                 .hasSize((int) Math.pow(2,
                         ingredients.size()));
-    }*/
+    }
 }
