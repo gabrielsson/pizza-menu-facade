@@ -43,6 +43,7 @@ dependencies {
     implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0'
     implementation 'com.google.guava:guava:26.0-jre'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'com.github.dpaukov:combinatoricslib3:3.3.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
@@ -83,14 +84,8 @@ task appNpmBuild(type: NpmTask) {
 
 
 task copyWebApp(type: Copy) {
-
-    println '******* THE COPY TOOK PLACE *******'
-
     from 'src/main/frontend/dist'
     into('build/resources/main/static/.')
-
-
-
 }
 
 
