@@ -1,21 +1,7 @@
 package com.gabrielsson.api;
 
-import com.gabrielsson.model.Ingredient;
-import com.gabrielsson.model.Pizza;
-import com.gabrielsson.service.CityService;
-import org.assertj.core.api.Assertions;
-import org.junit.Test;
-import org.mockito.Mockito;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import static org.mockito.ArgumentMatchers.any;
-
 public class MenuProviderTest {
-
+/*
 
     @Test
     public void menuPost() {
@@ -60,5 +46,5 @@ public class MenuProviderTest {
         Assertions.assertThat(pizzas)
                 .hasSize((int) Math.pow(2,
                         ingredients.size()));
-    }
+    }*/
 }
