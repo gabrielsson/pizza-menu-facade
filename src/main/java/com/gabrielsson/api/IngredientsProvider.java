@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 public class IngredientsProvider {
@@ -17,14 +18,12 @@ public class IngredientsProvider {
 
     public List<Map<String, String>> provide() {
         String[] ingredients = new String[]{"Kebab", "Mushrooms", "Pineapple", "Ham", "Mozzarella", "Basil"};
-        List<Map<String, String>> list = new ArrayList();
-
-        Arrays.stream(ingredients).forEach(name -> list.add(getIngredient(name)));
-
-        return list;
+        return Arrays.stream(ingredients)
+                .map(this::ingredientMap)
+                .collect(Collectors.toList());
     }
 
-    private ImmutableMap<String, String> getIngredient(String name) {
+    private ImmutableMap<String, String> ingredientMap(String name) {
         return ImmutableMap.of("name", name);
     }
 }
