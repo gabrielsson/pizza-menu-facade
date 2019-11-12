@@ -9,51 +9,38 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URL;
 
 import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
-@Component
-public class GraphQLProvider {
+@Configuration
+public class GraphQLConfiguration {
 
-    private final GraphQLDataFetchers graphQLDataFetchers;
-    private GraphQL graphQL;
-
-    public GraphQLProvider(GraphQLDataFetchers graphQLDataFetchers) {
-        this.graphQLDataFetchers = graphQLDataFetchers;
+    @Bean
+    public GraphQL graphQL(GraphQLSchema graphQLSchema) {
+        return GraphQL.newGraphQL(graphQLSchema).build();
     }
 
-    @PostConstruct
-    public void init() throws IOException {
+    @Bean
+    public GraphQLSchema graphQLSchema(RuntimeWiring runtimeWiring) throws IOException {
         URL url = Resources.getResource("schema.graphqls");
         String sdl = Resources.toString(url, Charsets.UTF_8);
-        GraphQLSchema graphQLSchema = buildSchema(sdl);
-        this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
-    }
-
-    private GraphQLSchema buildSchema(String sdl) {
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(sdl);
-        RuntimeWiring runtimeWiring = buildWiring();
         SchemaGenerator schemaGenerator = new SchemaGenerator();
         return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
     }
 
-    private RuntimeWiring buildWiring() {
+    @Bean
+    public RuntimeWiring runtimeWiring(GraphQLDataFetchers graphQLDataFetchers) {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query")
                         .dataFetcher("ingredients", graphQLDataFetchers.getIngredientsFetcher()))
                 .type(newTypeWiring("Query")
                         .dataFetcher("pizzas", graphQLDataFetchers.getPizzaFetcher()))
                 .build();
-    }
-
-    @Bean
-    public GraphQL graphQL() {
-        return graphQL;
     }
 
 }
