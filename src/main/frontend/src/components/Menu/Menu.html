@@ -1,0 +1,11 @@
+<div>
+    <h1>Pizza menu</h1>
+    <div v-for="pizza, index in menu">
+        <h3>{{index +1}}. {{ pizza.name }}</h3>
+        <ul>
+            <li>Tomat</li>
+            <li>Ost</li>
+            <li v-for="ingredient in pizza.ingredients">{{ingredient.name}}</li>
+        </ul>
+    </div>
+</div>
