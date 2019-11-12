@@ -3,10 +3,7 @@ package com.gabrielsson.configuration;
 import com.gabrielsson.api.IngredientsProvider;
 import com.gabrielsson.api.MenuProvider;
 import graphql.schema.DataFetcher;
-import graphql.schema.DataFetchingEnvironment;
 import lombok.AllArgsConstructor;
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscriber;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
