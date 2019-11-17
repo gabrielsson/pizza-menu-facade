@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "io.swagger", "com.gabrielsson.api" , "com.gabrielsson.configuration", "com.gabrielsson.service"})
+@ComponentScan(basePackages = { "com.gabrielsson.api" , "com.gabrielsson.configuration", "com.gabrielsson.service"})
 public class Application implements CommandLineRunner {
 
     @Override

@@ -1,22 +1,25 @@
 package com.gabrielsson.service;
 
+import io.opentracing.Tracer;
+import io.opentracing.contrib.spring.web.client.TracingRestTemplateInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class CityService {
 
     private final String cityEndpoint;
+    private final Tracer tracer;
 
-    public CityService(@Value("${pizza.name.endpoint}")String cityEndpoint) {
+
+    public CityService(@Value("${pizza.name.endpoint}") String cityEndpoint, Tracer tracer) {
         this.cityEndpoint = cityEndpoint;
+        this.tracer = tracer;
     }
 
     public String newPizzaName(String ingredients) {
@@ -25,6 +28,8 @@ public class CityService {
         params.put("ingredients", ingredients);
 
         RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setInterceptors(Collections.singletonList(new TracingRestTemplateInterceptor(tracer)));
+
         String name = restTemplate.getForObject(cityEndpoint +"/name?ingredients={ingredients}",
                 String.class, params);
         return name;

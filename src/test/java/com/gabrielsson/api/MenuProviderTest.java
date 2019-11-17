@@ -1,5 +1,7 @@
 package com.gabrielsson.api;
 
+import com.gabrielsson.model.Ingredient;
+import com.gabrielsson.model.Pizza;
 import com.gabrielsson.service.CityService;
 import com.google.common.collect.ImmutableMap;
 import org.assertj.core.api.Assertions;
@@ -21,7 +23,7 @@ public class MenuProviderTest {
     public void menuPost() {
         CityService cityService = Mockito.mock(CityService.class);
         Mockito.when(cityService.newPizzaName(any())).thenReturn("Dummy");
-        MenuProvider api = new MenuProvider(cityService);
+        PizzaResolver api = new PizzaResolver(cityService);
         List<String> ingredients = Arrays.asList(
                 "Skinka",
                 "Kebabkött",
@@ -36,19 +38,19 @@ public class MenuProviderTest {
                 "Basilika",
                 "Kebabsås"
         );
-        List<Map<String, Object>> name = ingredients
+        List<Ingredient> name = ingredients
                 .stream()
-                .map(s -> ImmutableMap.of("name", (Object) s))
+                .map(s -> Ingredient.builder().name(s).build())
                 .collect(Collectors.toList());
-        List<Map<String, Object>> pizzas = api.provide(name);
+        List<Pizza> pizzas = api.pizzas(name);
 
         IntStream.range(0, pizzas.size())
                 .forEach(i -> {
-                    Map<String, Object> pizza = pizzas.get(i);
+                    Pizza pizza = pizzas.get(i);
                     System.out.println(i + 1 + ". " +
-                            pizza.get("name") +
+                            pizza.getName() +
                             "\nTomat, Ost, " +
-                            pizza.get("ingredients")
+                            pizza.getIngredients().toString()
                     );
 
                 });
