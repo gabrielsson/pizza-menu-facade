@@ -21,7 +21,7 @@ public class IngredientsResolver  implements GraphQLQueryResolver {
 
 
     public List<Ingredient> ingredients() {
-        String[] ingredients = new String[]{"Kebab", "Mushrooms", "Pineapple", "Ham", "Mozzarella", "Basil"};
+        String[] ingredients = new String[]{"Pepperoni", "Mushrooms", "Onions", "Sausage", "Bacon", "Extra cheese", "Black olives", "Green peppers", "Pineapple", "Spinach", "Garlic", "Basil", "Buffalo Mozzarella", "Sun-Dried Tomatoes", "Prosciutto"};
         return Arrays.stream(ingredients)
                 .map(s -> Ingredient.builder().name(s).build())
                 .collect(Collectors.toList());

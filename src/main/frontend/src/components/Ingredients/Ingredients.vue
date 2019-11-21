@@ -24,11 +24,14 @@ export default {
     selectedIngredient: function(ingredient) {
       if(this.data.selectedList.includes(ingredient)) {
         this.data.selectedList.splice(this.data.selectedList.indexOf(ingredient), 1)
-       
+
       } else {
         this.data.selectedList.push(ingredient)
       }
       EventBus.$emit('generateMenu', this.data.selectedList)
+    },
+    isActive: function(ingredient) {
+        return this.data.selectedList.includes(ingredient);
     }
   },
   apollo: {
