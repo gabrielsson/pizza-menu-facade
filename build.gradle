@@ -42,6 +42,7 @@ dependencies {
     implementation 'com.google.guava:guava:26.0-jre'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.micrometer:micrometer-registry-prometheus:latest.release'
     implementation 'com.github.dpaukov:combinatoricslib3:3.3.0'
     implementation 'io.opentracing.contrib:opentracing-spring-web-starter:2.1.0'
     compileOnly("org.projectlombok:lombok:1.18.10")
