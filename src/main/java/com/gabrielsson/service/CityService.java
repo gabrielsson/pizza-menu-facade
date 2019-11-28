@@ -8,6 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -33,5 +34,16 @@ public class CityService {
         String name = restTemplate.getForObject(cityEndpoint +"/name?ingredients={ingredients}",
                 String.class, params);
         return name;
+    }
+
+    public List<String> newPizzaNames(List<List<String>> ingredients) {
+
+
+        RestTemplate restTemplate = new RestTemplate();
+        //restTemplate.setInterceptors(Collections.singletonList(new TracingRestTemplateInterceptor(tracer)));
+
+        List<String> names = restTemplate.postForObject(cityEndpoint +"/names",
+                 ingredients, List.class);
+        return names;
     }
 }
