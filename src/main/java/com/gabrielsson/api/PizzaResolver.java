@@ -1,6 +1,7 @@
 package com.gabrielsson.api;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.gabrielsson.configuration.MetricsService;
 import com.gabrielsson.model.Ingredient;
 import com.gabrielsson.model.Pizza;
 import com.gabrielsson.service.CityService;
@@ -8,24 +9,23 @@ import lombok.AllArgsConstructor;
 import org.paukov.combinatorics3.Generator;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @Component
 @AllArgsConstructor
 public class PizzaResolver implements GraphQLQueryResolver {
 
     private final CityService cityService;
+    private final MetricsService metricsService;
 
     public List<Pizza> pizzasSlow(List<Ingredient> ingredients) {
         if (ingredients == null) {
             return Collections.emptyList();
         }
+        metricsService.count(ingredients);
         List<String> ingredientNames = ingredients.stream()
                 .skip(Math.max(0, ingredients.size() - 16))
                 .map(Ingredient::getName)
@@ -53,6 +53,8 @@ public class PizzaResolver implements GraphQLQueryResolver {
         if (ingredients == null) {
             return Collections.emptyList();
         }
+        metricsService.count(ingredients);
+
         List<List<String>> pizzas = Generator
                 .subset(ingredients.stream()
                         .skip(Math.max(0, ingredients.size() - 16))
