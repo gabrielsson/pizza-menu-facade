@@ -5,6 +5,7 @@ import com.gabrielsson.configuration.MetricsService;
 import com.gabrielsson.model.Ingredient;
 import com.gabrielsson.model.Pizza;
 import com.gabrielsson.service.CityService;
+import io.micrometer.core.annotation.Timed;
 import lombok.AllArgsConstructor;
 import org.paukov.combinatorics3.Generator;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ public class PizzaResolver implements GraphQLQueryResolver {
     private final CityService cityService;
     private final MetricsService metricsService;
 
+    @Timed
     public List<Pizza> pizzasSlow(List<Ingredient> ingredients) {
         if (ingredients == null) {
             return Collections.emptyList();
@@ -49,6 +51,7 @@ public class PizzaResolver implements GraphQLQueryResolver {
                 }).collect(Collectors.toList());
     }
 
+    @Timed
     public List<Pizza> pizzas(List<Ingredient> ingredients) {
         if (ingredients == null) {
             return Collections.emptyList();

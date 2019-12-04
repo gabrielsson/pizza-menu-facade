@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class IngredientsResolver implements GraphQLQueryResolver {
 
+    @Timed
     public List<Ingredient> ingredients() {
         String[] ingredients = new String[]{"Pepperoni", "Mushrooms", "Onions", "Sausage", "Bacon", "Extra cheese",
                 "Black olives", "Green peppers", "Pineapple", "Spinach", "Garlic", "Basil", "Buffalo Mozzarella",
